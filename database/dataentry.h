@@ -21,7 +21,7 @@ class DataEntry{
 	std::byte* access(unsigned int offset = 0) const;
 
 	private:	
-	int size_t;
+	int size;
 	std::byte* d; 
 	
 };
@@ -32,10 +32,11 @@ class DataEntryGPU{
 	/* General data entry, with attributes : size and data */
 
 	public:
-	DataEntry(unsigned int size);
-	
+	DataEntryGPU(unsigned int size);
+	~DataEntryGPU();
+
 	private:
-	int size_t;
+	int size;
 	std::byte* d; 
 	
 };

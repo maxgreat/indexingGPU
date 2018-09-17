@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -std=c++17
 EXE = main
-OBJ = database/dataentry.o main.o
+OBJ = database/dataentry.o database/database.o main.o
 #CPPFLAGS = -Dwith_cuda
 
 BUILD_DIR = database

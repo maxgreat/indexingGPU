@@ -8,13 +8,13 @@ byte* readData(string& FileName, int size_t /* =-1 */){
 }
 
 DataEntry::DataEntry(unsigned int size){
-	size_t = size;
+	this->size = size;
 	
 	d = (byte*)malloc(size);
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 
-		this->size_t = 0;
+		this->size = 0;
 	}
 }
 
@@ -23,11 +23,11 @@ DataEntry::~DataEntry(){
 }
 
 bool DataEntry::changeSize(unsigned int new_size){
-	size_t = new_size;
+	this->size = new_size;
 	d = (byte*)realloc(d, new_size);
 	if(d == nullptr){
 		cerr << "Can't realloc with size" << new_size;
-		this->size_t = 0;
+		this->size = 0;
 		return false;
 	}
 	return true;
@@ -39,7 +39,7 @@ bool DataEntry::changeData(byte* newData){
 }
 	
 byte* DataEntry::access(unsigned int offset /* =0 */) const {
-	return d + (offset%this->size_t);
+	return d + (offset%this->size);
 }
 
 
@@ -55,16 +55,33 @@ byte* DataEntry::access(unsigned int offset /* =0 */) const {
 ************************************************************ */
 #ifdef with_cuda
 DataEntryGPU::DataEntryGPU(unsigned int size){
-	size_t = size;
+	this->size = size;
 	
-	d = (byte*)malloc(size);
+	// Alloc Unified Memory
+	byte* d;
+	cudaMallocManaged(&d, size);
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 
-		this->size_t = 0;
+		this->size = 0;
 	}
 }
+
+
+
+DataEntry::~DataEntry(){
+	cudaFree(d);
+}
+
+
+
+
+
+
+
+
 #endif
+
 
 
 
