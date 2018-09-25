@@ -42,3 +42,29 @@ byte* DataEntry::access(unsigned int offset /* =0 */) const {
 	return d + (offset%this->size_t);
 }
 
+
+
+
+
+/* ************************************************************
+*
+*
+* 	GPU Part
+*
+*
+************************************************************ */
+#ifdef with_cuda
+DataEntryGPU::DataEntryGPU(unsigned int size){
+	size_t = size;
+	
+	d = (byte*)malloc(size);
+
+	if(d == nullptr){
+		std::cerr << "Can't alloc with size" << size; 
+		this->size_t = 0;
+	}
+}
+#endif
+
+
+

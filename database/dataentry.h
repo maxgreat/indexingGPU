@@ -1,10 +1,13 @@
+#ifndef dataentry
+#define dataentry
+
 #include <string>
 #include <cstddef>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
 
-std::byte* readData(std::string& FileName, int size_t=-1); 
+std::byte* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
 
 class DataEntry{
 	/* General data entry, with attributes : size and data */
@@ -23,3 +26,19 @@ class DataEntry{
 	
 };
 
+
+#ifdef with_cuda
+class DataEntryGPU{
+	/* General data entry, with attributes : size and data */
+
+	public:
+	DataEntry(unsigned int size);
+	
+	private:
+	int size_t;
+	std::byte* d; 
+	
+};
+#endif
+
+#endif
