@@ -4,22 +4,22 @@
 #include <stdio.h>
 #include <iostream>
 
-byte* readData(string& FileName, int size_t=-1); 
+std::byte* readData(std::string& FileName, int size_t=-1); 
 
 class DataEntry{
 	/* General data entry, with attributes : size and data */
 
 	public:
-	DataEntry( unsigned int size);
+	DataEntry(unsigned int size);
 	~DataEntry();
 	bool changeSize(unsigned int new_size);
-	bool changeData(byte* newData);
+	bool changeData(std::byte* newData);
 	
-	bool access(unsigned int offset=0) const;
+	std::byte* access(unsigned int offset = 0) const;
 
 	private:	
 	int size_t;
-	byte* d; 
+	std::byte* d; 
 	
 };
 

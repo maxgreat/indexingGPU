@@ -1,6 +1,6 @@
-#include 'database/dataentry.h'
+#include "database/dataentry.h"
 
 int main(){
-	DataEntry* de {10};
+	DataEntry dE {10u};
 	return 0;
 }

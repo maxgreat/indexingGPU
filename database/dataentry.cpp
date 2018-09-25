@@ -1,6 +1,8 @@
 #include "dataentry.h"
 
-byte* readData(string& FileName, int size_t=-1){
+using namespace std;
+
+byte* readData(string& FileName, int size_t /* =-1 */){
 	// TODO
 	return nullptr;
 }
@@ -24,7 +26,7 @@ bool DataEntry::changeSize(unsigned int new_size){
 	size_t = new_size;
 	d = (byte*)realloc(d, new_size);
 	if(d == nullptr){
-		std:cerr<<"Can't realloc with size" << size;
+		cerr << "Can't realloc with size" << new_size;
 		this->size_t = 0;
 		return false;
 	}
@@ -36,7 +38,7 @@ bool DataEntry::changeData(byte* newData){
 	return false;
 }
 	
-bool DataEntry::access(unsigned int offset=0){
-	return (d+offset)*;
+byte* DataEntry::access(unsigned int offset /* =0 */) const {
+	return d + (offset%this->size_t);
 }
 

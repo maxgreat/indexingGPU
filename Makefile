@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -Wall
+CFLAGS = -Wall -std=c++17
 EXE = main
-OBJ = database/dataentry.o
+OBJ = database/dataentry.o main.o
 
 BUILD_DIR = database
 
