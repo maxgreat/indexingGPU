@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <iostream>
 
-std::byte* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
+float* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
 
 class DataEntry{
 	/* General data entry, with attributes : size and data */
@@ -16,13 +16,13 @@ class DataEntry{
 	DataEntry(unsigned int size);
 	~DataEntry();
 	bool changeSize(unsigned int new_size);
-	bool changeData(std::byte* newData);
+	bool changeData(float* newData, unsigned int size);
 	
-	std::byte* access(unsigned int offset = 0) const;
+	float* access(unsigned int offset = 0) const;
 
 	private:	
 	int size;
-	std::byte* d; 
+	float* d; //array of data 
 	
 };
 
@@ -37,7 +37,7 @@ class DataEntryGPU{
 
 	private:
 	int size;
-	std::byte* d; 
+	float * d; //data array on GPU 
 	
 };
 #endif

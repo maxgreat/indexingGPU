@@ -2,7 +2,7 @@
 
 using namespace std;
 
-byte* readData(string& FileName, int size_t /* =-1 */){
+float * readData(string& FileName, int size_t /* =-1 */){
 	// TODO
 	return nullptr;
 }
@@ -10,7 +10,7 @@ byte* readData(string& FileName, int size_t /* =-1 */){
 DataEntry::DataEntry(unsigned int size){
 	this->size = size;
 	
-	d = (byte*)malloc(size);
+	d = (float*)malloc(size);
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 
@@ -24,7 +24,7 @@ DataEntry::~DataEntry(){
 
 bool DataEntry::changeSize(unsigned int new_size){
 	this->size = new_size;
-	d = (byte*)realloc(d, new_size);
+	d = (float*)realloc(d, new_size);
 	if(d == nullptr){
 		cerr << "Can't realloc with size" << new_size;
 		this->size = 0;
@@ -33,12 +33,12 @@ bool DataEntry::changeSize(unsigned int new_size){
 	return true;
 }
 
-bool DataEntry::changeData(byte* newData){
+bool DataEntry::changeData(float* newData, unsigned int size){
 	//TODO
 	return false;
 }
 	
-byte* DataEntry::access(unsigned int offset /* =0 */) const {
+float* DataEntry::access(unsigned int offset /* =0 */) const {
 	return d + (offset%this->size);
 }
 
@@ -58,7 +58,7 @@ DataEntryGPU::DataEntryGPU(unsigned int size){
 	this->size = size;
 	
 	// Alloc Unified Memory
-	byte* d;
+	float * d;
 	cudaMallocManaged(&d, size);
 
 	if(d == nullptr){
