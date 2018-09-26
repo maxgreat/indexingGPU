@@ -42,6 +42,17 @@ float* DataEntry::access(unsigned int offset /* =0 */) const {
 	return d + (offset%this->size);
 }
 
+void DataEntry::print(std::ostream& out) const {
+	out << size << ': [';
+	for (auto i = 0; i < size; i++)
+		out << d[i] << " : ";
+	out << "]";
+}
+
+std::ostream& operator<< (std::ostream &out, DataEntry const& data){
+	data.print(out);
+	return out;
+}
 
 
 

@@ -9,6 +9,7 @@
 
 float* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
 
+
 class DataEntry{
 	/* General data entry, with attributes : size and data */
 
@@ -20,11 +21,17 @@ class DataEntry{
 	
 	float* access(unsigned int offset = 0) const;
 
+
+	void print(std::ostream& out) const;
+
 	private:	
 	int size;
 	float* d; //array of data 
 	
 };
+
+
+std::ostream& operator<< (std::ostream &out, DataEntry const& data);
 
 
 #ifdef with_cuda

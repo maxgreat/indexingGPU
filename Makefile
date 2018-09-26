@@ -1,6 +1,15 @@
 CC = g++
-CFLAGS = -Wall -std=c++17 -g
-EXE = main test_database
+DEBUG=yes
+ifeq ($(DEBUG),yes)
+	CFLAGS=-W -Wall -ansi -pedantic -std=c++14 -g
+	LDFLAGS=
+else
+	CFLAGS=-W -Wall -ansi -pedantic -std=c++14 
+	LDFLAGS=
+endif
+
+
+EXE = main test_database test_dataentry
 OBJ = database/dataentry.o database/database.o
 #CPPFLAGS = -Dwith_cuda
 
@@ -13,10 +22,13 @@ clean:
 	rm $(EXE) $(OBJ) $(EXE).o
 
 main: main.o $(OBJ)
-	$(CC) -g $(OBJ) main.o -o main
+	$(CC) $(OBJ) $< -o $@
+
+test_dataentry: test_dataentry.o $(OBJ)
+	$(CC) $(OBJ) $< -o $@
 
 test_database: test_database.o $(OBJ)
-	$(CC) -g $(OBJ) test_database.o -o test_database
+	$(CC) $(OBJ) $< -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
