@@ -1,4 +1,6 @@
 #include "dataentry.h"
+#include <cuda.h>
+#include <cuda_runtime_api.h>
 
 using namespace std;
 
@@ -11,6 +13,7 @@ DataEntry::DataEntry(unsigned int size){
 	this->size = size;
 	
 	d = (float*)malloc(size);
+
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 
@@ -69,8 +72,7 @@ DataEntryGPU::DataEntryGPU(unsigned int size){
 	this->size = size;
 	
 	// Alloc Unified Memory
-	float * d;
-	cudaMallocManaged(&d, size);
+	cudaMallocManaged((void**)&d, size);
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 

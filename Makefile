@@ -1,10 +1,12 @@
-CC = g++
+#CC = g++
+CC = nvcc
 DEBUG=yes
 ifeq ($(DEBUG),yes)
-	CFLAGS=-W -Wall -ansi -pedantic -std=c++14 -g
+	#CFLAGS= -W -Wall -ansi -pedantic -std=c++14 -g
+	CFLAGS=
 	LDFLAGS=
 else
-	CFLAGS=-W -Wall -ansi -pedantic -std=c++14 
+	CFLAGS= -W -Wall -ansi -pedantic -std=c++14 
 	LDFLAGS=
 endif
 

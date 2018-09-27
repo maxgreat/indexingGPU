@@ -26,7 +26,7 @@ class DataEntry{
 
 	private:	
 	int size;
-	float* d; //array of data 
+	float * d; //array of data 
 	
 };
 
