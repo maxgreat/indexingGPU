@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <ctime>
 
 #ifdef with_cuda
 
 #include <cuda.h>
 #include <cuda_runtime_api.h>
+#include <curand.h>
 
 #endif
 
@@ -21,10 +23,11 @@ class DataEntry{
 	/* General data entry, with attributes : size and data */
 
 	public:
-	DataEntry(unsigned int size);
+	DataEntry(unsigned int s);
 	~DataEntry();
 	bool changeSize(unsigned int new_size);
-	bool changeData(float* newData, unsigned int size);
+	void randomFill(float minValue=0, float maxValue=100);
+	bool changeData(float* newData, unsigned int s);
 	
 	float* access(unsigned int offset = 0) const;
 
@@ -46,13 +49,15 @@ class DataEntryGPU{
 	/* General data entry, with attributes : size and data */
 
 	public:
-	DataEntryGPU(unsigned int size);
+	DataEntryGPU(unsigned int s);
 	~DataEntryGPU();
 	void print(std::ostream& out) const;
 	
+	void randomFill(float minValue=0, float maxValue=100);
+	
 	private:
 	int size;
-	float * d; //data array on GPU 
+	float* d; //data array on GPU 
 	
 };
 
