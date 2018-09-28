@@ -7,6 +7,13 @@
 #include <stdio.h>
 #include <iostream>
 
+#ifdef with_cuda
+
+#include <cuda.h>
+#include <cuda_runtime_api.h>
+
+#endif
+
 float* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
 
 
@@ -41,12 +48,16 @@ class DataEntryGPU{
 	public:
 	DataEntryGPU(unsigned int size);
 	~DataEntryGPU();
-
+	void print(std::ostream& out) const;
+	
 	private:
 	int size;
 	float * d; //data array on GPU 
 	
 };
+
+std::ostream& operator<< (std::ostream &out, DataEntryGPU const& data);
+
 #endif
 
 #endif

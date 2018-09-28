@@ -28,7 +28,19 @@ unsigned int DataBase::FindClosest(DataEntry* E){
 	return 0;
 }
 
+
+
+/* 
+	CUDA PART
+*/
 #ifdef with_cuda
-DataBase::FindClosestGPU(DataEntryGPU* E);
-DataBase::toCuda();
+unsigned int DataBase::FindClosestGPU(DataEntryGPU* E){
+	//TODO
+	return 0;	
+}
+
+bool DataBase::toCuda(){
+	//TODO
+	return false;
+}
 #endif	

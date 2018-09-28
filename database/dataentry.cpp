@@ -1,6 +1,4 @@
 #include "dataentry.h"
-#include <cuda.h>
-#include <cuda_runtime_api.h>
 
 using namespace std;
 
@@ -46,7 +44,7 @@ float* DataEntry::access(unsigned int offset /* =0 */) const {
 }
 
 void DataEntry::print(std::ostream& out) const {
-	out << size << ': [';
+	out << size << ": [";
 	for (auto i = 0; i < size; i++)
 		out << d[i] << " : ";
 	out << "]";
@@ -72,23 +70,31 @@ DataEntryGPU::DataEntryGPU(unsigned int size){
 	this->size = size;
 	
 	// Alloc Unified Memory
-	cudaMallocManaged((void**)&d, size);
-
+	auto err = cudaMallocManaged((void**)&d, size);
+	cout << "Error code : " << err << endl;
 	if(d == nullptr){
-		std::cerr << "Can't alloc with size" << size; 
+		std::cerr << "Can't alloc with size" << size << endl; 
 		this->size = 0;
 	}
 }
 
 
-
-DataEntry::~DataEntry(){
+DataEntryGPU::~DataEntryGPU(){
 	cudaFree(d);
 }
 
 
+void DataEntryGPU::print(std::ostream& out) const {
+	out << size << ": [";
+	for (auto i = 0; i < size; i++)
+		out << d[i] << " : ";
+	out << "]";
+}
 
-
+std::ostream& operator<< (std::ostream &out, DataEntryGPU const& data){
+	data.print(out);
+	return out;
+}
 
 
 

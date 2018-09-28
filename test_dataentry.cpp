@@ -12,6 +12,7 @@ int main(){
 #ifdef with_cuda
 	cout << "Test CUDA loading" << endl;
 	DataEntryGPU d_dE {10u};
+	cout << d_dE << endl;
 #endif
 	return 0;
 

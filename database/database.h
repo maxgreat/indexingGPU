@@ -1,6 +1,14 @@
 #ifndef database
 #define database
 
+#ifdef with_cuda
+
+#include <cuda.h>
+#include <cuda_runtime_api.h>
+
+#endif
+
+
 #include "dataentry.h"
 
 
