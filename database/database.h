@@ -20,6 +20,7 @@ class DataBase{
 	~DataBase();
 
 	bool AddEntry(DataEntry* E);
+	unsigned int createNEntries(unsigned int N);
 
 	unsigned int FindClosest(DataEntry* E);
 

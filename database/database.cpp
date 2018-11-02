@@ -23,6 +23,16 @@ bool DataBase::AddEntry(DataEntry* E){
 	return false;
 }
 
+unsigned int DataBase::createNEntries(unsigned int N){
+	nb_entries += N;
+	DataEntry* E;
+	
+	for(auto i = 0; i < N; i++){
+		AddEntry(new DataEntry(10));
+	}
+
+}	
+
 unsigned int DataBase::FindClosest(DataEntry* E){
 	//TODO
 	return 0;

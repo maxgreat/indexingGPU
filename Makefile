@@ -15,7 +15,7 @@ endif
 EXE = main test_database test_dataentry
 #EXE = main
 OBJ = database/dataentry.o database/database.o
-CPPFLAGS = -Dwith_cuda
+#CPPFLAGS = -Dwith_cuda
 
 BUILD_DIR = database
 

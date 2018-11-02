@@ -10,20 +10,14 @@ float * readData(string& FileName, int size_t /* =-1 */){
 DataEntry::DataEntry(unsigned int s){
 	size = s;
 	d = (float*)malloc(size*sizeof(float));
-	
-	//TO REMOVE
-	for(auto i=0; i < size; i++){
-		d[i] = 1.0f;
-	}
-	
-
-	srand(static_cast<unsigned int>(clock()));
-	
 
 	if(d == nullptr){
 		std::cerr << "Can't alloc with size" << size; 
 		size = 0;
 	}
+	
+	srand(static_cast<unsigned int>(clock()));
+	randomFill();
 }
 
 DataEntry::~DataEntry(){
