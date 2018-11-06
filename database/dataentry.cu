@@ -7,15 +7,15 @@ float * readData(string& FileName, int size_t /* =-1 */){
 	return nullptr;
 }
 
-DataEntry::DataEntry(unsigned int s){
+DataEntry::DataEntry(size_t s){
 	size = s;
 	d = (float*)malloc(size*sizeof(float));
 
 	if(d == nullptr){
-		std::cerr << "Can't alloc with size" << size; 
+		std::cerr << "Can't alloc with size" << size;
 		size = 0;
 	}
-	
+
 	srand(static_cast<unsigned int>(clock()));
 	randomFill();
 }
@@ -61,7 +61,7 @@ float DataEntry::distance(DataEntry& E, std::string type /*="euclidean2"*/) {
 		dist = sqrt(dist);
 	}
 	else{
-		std::cerr << "Distance type unknown :" << type; 
+		std::cerr << "Distance type unknown :" << type;
 	}
 	return dist;
 }
@@ -94,18 +94,18 @@ std::ostream& operator<< (std::ostream &out, DataEntry const& data){
 #ifdef with_cuda
 DataEntryGPU::DataEntryGPU(unsigned int s){
 	size = s;
-	
+
 	// Alloc Unified Memory
 	auto err = cudaMallocManaged((void**)&d, size*sizeof(float));
 
 
 	if(err != 0){
-		cout << "Error code : " << err << endl;		
+		cout << "Error code : " << err << endl;
 	}
-	
+
 
 	if(d == nullptr){
-		std::cerr << "Can't alloc with size" << size << endl; 
+		std::cerr << "Can't alloc with size" << size << endl;
 		size = 0;
 	}
 }
@@ -131,9 +131,9 @@ __global__ void divideOnGPU(float* d_d, unsigned int size, float minValue /*=0*/
 
 void DataEntryGPU::randomFill(float minValue /*=0*/, float maxValue /*=100*/){
 	curandGenerator_t gen;
-	curandCreateGenerator(&gen, 
+	curandCreateGenerator(&gen,
 				CURAND_RNG_PSEUDO_DEFAULT);
-	curandSetPseudoRandomGeneratorSeed(gen, 
+	curandSetPseudoRandomGeneratorSeed(gen,
 				1234ULL);
 	curandGenerateUniform(gen, d, size);
 	curandDestroyGenerator(gen);
@@ -151,7 +151,3 @@ std::ostream& operator<< (std::ostream &out, DataEntryGPU const& data){
 
 
 #endif
-
-
-
-

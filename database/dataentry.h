@@ -24,28 +24,28 @@ float* readData(std::string& FileName, int max_size=-1); // Read binary data fro
 class DataEntry{
 	/* General data entry, with attributes : size and data */
 
-	
+
 	public:
-	DataEntry(unsigned int s);
+	DataEntry(size_t s);
 	~DataEntry();
 	bool changeSize(unsigned int new_size);
 	void randomFill(float minValue=0, float maxValue=100);
 	bool changeData(float* newData, unsigned int s);
-	
+
 	float& operator[](size_t offset) const{
 		return d[offset%size];
 	}
 
 	float distance(DataEntry& E, std::string type="euclidean");
 
-	size_t s() const { return size;}	
-	
+	size_t s() const { return size;}
+
 	private:
-	int size;
+	size_t size;
 	float * d; //array of data
 	void print(std::ostream& out) const;
-	
-	
+
+
 };
 
 
@@ -60,13 +60,13 @@ class DataEntryGPU{
 	DataEntryGPU(unsigned int s);
 	~DataEntryGPU();
 	void print(std::ostream& out) const;
-	
+
 	void randomFill(float minValue=0, float maxValue=100);
-	
+
 	private:
 	int size;
-	float* d; //data array on GPU 
-	
+	float* d; //data array on GPU
+
 };
 
 std::ostream& operator<< (std::ostream &out, DataEntryGPU const& data);
