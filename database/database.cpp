@@ -1,7 +1,7 @@
 #include "database.h"
 
 DataBase::DataBase(){
-	onGPU = false;		
+	onGPU = false;
 	nb_entries=0;
 	size = 0;
 	tabData = nullptr;
@@ -14,7 +14,7 @@ DataBase::~DataBase(){
 #endif
 }
 
-bool DataBase::AddEntry(DataEntry* E){
+bool DataBase::AddEntry(DataEntry& E){
 	if (nb_entries < size){
 		tabData[nb_entries] = E;
 		nb_entries++;
@@ -25,32 +25,32 @@ bool DataBase::AddEntry(DataEntry* E){
 
 unsigned int DataBase::createNEntries(unsigned int N){
 	nb_entries += N;
-	DataEntry* E;
-	
+
 	for(auto i = 0; i < N; i++){
-		AddEntry(new DataEntry(10));
+		DataEntry E{size};
+		AddEntry(E);
 	}
 
-}	
+}
 
-unsigned int DataBase::FindClosest(DataEntry* E){
+unsigned int DataBase::FindClosest(DataEntry& E){
 	//TODO
 	return 0;
 }
 
 
 
-/* 
+/*
 	CUDA PART
 */
 #ifdef with_cuda
 unsigned int DataBase::FindClosestGPU(DataEntryGPU* E){
 	//TODO
-	return 0;	
+	return 0;
 }
 
 bool DataBase::toCuda(){
 	//TODO
 	return false;
 }
-#endif	
+#endif
