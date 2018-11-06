@@ -9,12 +9,14 @@
 #include <ctime>
 
 #ifdef with_cuda
-
-#include <cuda.h>
-#include <cuda_runtime_api.h>
-#include <curand.h>
-
+	#include <cuda.h>
+	#include <cuda_runtime_api.h>
+	#include <curand.h>
 #endif
+
+/*
+	We use float[] to have the same structure and cuda
+*/
 
 float* readData(std::string& FileName, int max_size=-1); // Read binary data from FileName
 
@@ -22,6 +24,7 @@ float* readData(std::string& FileName, int max_size=-1); // Read binary data fro
 class DataEntry{
 	/* General data entry, with attributes : size and data */
 
+	
 	public:
 	DataEntry(unsigned int s);
 	~DataEntry();
@@ -29,14 +32,19 @@ class DataEntry{
 	void randomFill(float minValue=0, float maxValue=100);
 	bool changeData(float* newData, unsigned int s);
 	
-	float* access(unsigned int offset = 0) const;
+	float& operator[](size_t offset) const{
+		return d[offset%size];
+	}
 
+	float distance(DataEntry& E, std::string type="euclidean");
 
-	void print(std::ostream& out) const;
-
-	private:	
+	size_t s() const { return size;}	
+	
+	private:
 	int size;
-	float * d; //array of data 
+	float * d; //array of data
+	void print(std::ostream& out) const;
+	
 	
 };
 

@@ -46,9 +46,24 @@ bool DataEntry::changeData(float* newData, unsigned int s){
 	//TODO
 	return false;
 }
-	
-float* DataEntry::access(unsigned int offset /* =0 */) const {
-	return d + (offset%size);
+
+float DataEntry::distance(DataEntry& E, std::string type /*="euclidean2"*/) {
+	float dist {0.0f};
+	if(type.compare("euclidean2") == 0){
+		for(auto i=0; i<size;i++){
+			dist += d[i]*d[i] + E[i]*E[i];
+		}
+	}
+	else if(type.compare("euclidean") == 0){
+		for(auto i=0; i<size;i++){
+			dist += d[i]*d[i] + E[i]*E[i];
+		}
+		dist = sqrt(dist);
+	}
+	else{
+		std::cerr << "Distance type unknown :" << type; 
+	}
+	return dist;
 }
 
 void DataEntry::print(std::ostream& out) const {
@@ -59,7 +74,10 @@ void DataEntry::print(std::ostream& out) const {
 }
 
 std::ostream& operator<< (std::ostream &out, DataEntry const& data){
-	data.print(out);
+	out << data.s() << ": [";
+	for (auto i = 0; i < data.s(); i++)
+		out << data[i] << " ; ";
+	out << "]";
 	return out;
 }
 
