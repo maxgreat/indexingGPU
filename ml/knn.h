@@ -4,10 +4,7 @@
 #include "database/dataentry.h"
 #include "database/database.h"
 
-
-DataEntry& naive_knn(DataEntry& E, DataBase& dB);
-
-
+DataEntry& naive_1nn(DataEntry& E, DataBase& dB);
 
 
 #endif
