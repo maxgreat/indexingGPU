@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <ctime>
+#include <stdexcept>
+
 
 #ifdef with_cuda
 	#include <cuda.h>
@@ -33,10 +35,13 @@ class DataEntry{
 	bool changeData(float* newData, unsigned int s);
 
 	float& operator[](size_t offset) const{
-		return d[offset%size];
+		if(offset < size)
+			return d[offset];
+		else
+			throw std::invalid_argument("Invalide offset for operator []");
 	}
 
-	float distance(DataEntry& E, std::string type="euclidean");
+	float distance(DataEntry& E, std::string type="euclidean2");
 
 	size_t s() const { return size;}
 

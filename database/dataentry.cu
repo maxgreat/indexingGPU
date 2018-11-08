@@ -47,16 +47,18 @@ bool DataEntry::changeData(float* newData, unsigned int s){
 	return false;
 }
 
+
 float DataEntry::distance(DataEntry& E, std::string type /*="euclidean2"*/) {
 	float dist {0.0f};
 	if(type.compare("euclidean2") == 0){
 		for(auto i=0; i<size;i++){
-			dist += d[i]*d[i] + E[i]*E[i];
+			dist += (d[i]-E[i])*(d[i]-E[i]);
 		}
 	}
 	else if(type.compare("euclidean") == 0){
+		cerr << "Distance type : euclidean" << endl;
 		for(auto i=0; i<size;i++){
-			dist += d[i]*d[i] + E[i]*E[i];
+			dist += (d[i]-E[i])*(d[i]-E[i]);
 		}
 		dist = sqrt(dist);
 	}
