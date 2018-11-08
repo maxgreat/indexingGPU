@@ -1,0 +1,6 @@
+*.o
+database/*.o
+ml/*.o
+main
+test_database
+test_dataentry
