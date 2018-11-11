@@ -48,8 +48,6 @@ class DataEntry{
 	private:
 	size_t size;
 	float * d; //array of data
-	void print(std::ostream& out) const;
-
 
 };
 

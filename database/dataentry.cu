@@ -68,18 +68,12 @@ float DataEntry::distance(DataEntry& E, std::string type /*="euclidean2"*/) {
 	return dist;
 }
 
-void DataEntry::print(std::ostream& out) const {
-	out << size << ": [";
-	for (auto i = 0; i < size; i++)
-		out << d[i] << " ; ";
-	out << "]";
-}
 
 std::ostream& operator<< (std::ostream &out, DataEntry const& data){
 	out << data.s() << ": [";
 	for (auto i = 0; i < data.s()-1; i++)
 		out << data[i] << ", ";
-	out << data[i] <<"]";
+	out << data[data.s()-1] <<"]";
 	return out;
 }
 
