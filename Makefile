@@ -2,6 +2,8 @@
 CC = nvcc
 DEBUG=yes
 INC=-I/usr/local/cuda-8.0/include/ -I./
+SUBDIRS := $(wildcard */.)
+
 
 ifeq ($(DEBUG),yes)
 	#CFLAGS= -W -Wall -ansi -pedantic -std=c++14 -g
@@ -14,7 +16,7 @@ else
 endif
 
 
-EXE = main test/test_database test/test_dataentry
+EXE = main
 #EXE = main
 OBJ = database/dataentry.o database/database.o ml/knn.o
 #CPPFLAGS = -Dwith_cuda
@@ -22,20 +24,17 @@ OBJ = database/dataentry.o database/database.o ml/knn.o
 BUILD_DIR = database
 
 
-all: $(EXE)
+all: $(EXE) $(SUBDIRS)
+
 
 clean:
-	rm $(EXE) $(OBJ) main.o test_dataentry.o test_database.o
+	rm $(EXE) main.o */*.o
 
 main: main.o $(OBJ)
 	g++ $(OBJ) $< -o $@ $(LDFLAGS) $(CPPFLAGS)
-#g++ -L/usr/local/cuda-9.0/lib64  $(OBJ) main.o -o main -lcudadevrt -lcudart
 
-test_dataentry: test_dataentry.o $(OBJ)
-	g++ $(OBJ) $< -o $@ $(LDFLAGS) $(CPPFLAGS)
-
-test_database: test_database.o $(OBJ)
-	g++ $(OBJ) $< -o $@ $(LDFLAGS) $(CPPFLAGS)
+test:
+				$(MAKE) -C $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< $(CPPFLAGS)
@@ -45,3 +44,5 @@ test_database: test_database.o $(OBJ)
 
 $(BUILD_DIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+.PHONY: all $(SUBDIRS)
