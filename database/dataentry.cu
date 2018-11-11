@@ -77,9 +77,9 @@ void DataEntry::print(std::ostream& out) const {
 
 std::ostream& operator<< (std::ostream &out, DataEntry const& data){
 	out << data.s() << ": [";
-	for (auto i = 0; i < data.s(); i++)
-		out << data[i] << " ; ";
-	out << "]";
+	for (auto i = 0; i < data.s()-1; i++)
+		out << data[i] << ", ";
+	out << data[i] <<"]";
 	return out;
 }
 
