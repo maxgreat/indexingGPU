@@ -9,12 +9,12 @@ ifeq ($(DEBUG),yes)
 	CFLAGS= -std=c++11 $(INC) -arch=sm_50 -L/usr/local/cuda-8.0/lib64
 	LDFLAGS= $(INC) -std=c++11 -L/usr/local/cuda-8.0/lib64 -lcudadevrt -lcudart -lcurand
 else
-	CFLAGS= -W -Wall -ansi -pedantic -std=c++14 
+	CFLAGS= -W -Wall -ansi -pedantic -std=c++14
 	LDFLAGS= -L/usr/local/cuda-9.0/lib64 -lcudadevrt -lcudart -lcurand
 endif
 
 
-EXE = main test_database test_dataentry
+EXE = main test/test_database test/test_dataentry
 #EXE = main
 OBJ = database/dataentry.o database/database.o ml/knn.o
 #CPPFLAGS = -Dwith_cuda
@@ -24,12 +24,12 @@ BUILD_DIR = database
 
 all: $(EXE)
 
-clean: 
+clean:
 	rm $(EXE) $(OBJ) main.o test_dataentry.o test_database.o
 
 main: main.o $(OBJ)
 	g++ $(OBJ) $< -o $@ $(LDFLAGS) $(CPPFLAGS)
-#g++ -L/usr/local/cuda-9.0/lib64  $(OBJ) main.o -o main -lcudadevrt -lcudart	
+#g++ -L/usr/local/cuda-9.0/lib64  $(OBJ) main.o -o main -lcudadevrt -lcudart
 
 test_dataentry: test_dataentry.o $(OBJ)
 	g++ $(OBJ) $< -o $@ $(LDFLAGS) $(CPPFLAGS)
@@ -39,9 +39,9 @@ test_database: test_database.o $(OBJ)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< $(CPPFLAGS)
-	 
+
 %.o: %.cu
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< $(CPPFLAGS)
 
 $(BUILD_DIR)/%.o: %.cpp
-	$(CC) $(CFLAGS) $< -o $@ 
+	$(CC) $(CFLAGS) $< -o $@
